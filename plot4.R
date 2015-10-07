@@ -2,11 +2,11 @@
 filename <- "household_power_consumption.zip"
 
 # Download and unzip the dataset if required
-if (!file.exists(filename)){
-  fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-  download.file(fileURL, filename)
-}  
 if (!file.exists("household_power_consumption.txt")) { 
+  if (!file.exists(filename)){
+    fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+    download.file(fileURL, filename, method="curl") #method curl for OSX, remove to Windows OS
+  }  
   unzip(filename) 
 }
 
@@ -31,7 +31,7 @@ dt.work <- dt %>%
                    Global_reactive_power = as.numeric(Global_reactive_power))
 
 #Set locale to print the week days in English
-Sys.setlocale("LC_ALL","English")
+Sys.setlocale("LC_ALL","en_US.UTF-8")
 
 #Plot graphic and save as PNG
 png(filename = "plot4.png",width = 480, height = 480, units = "px")
